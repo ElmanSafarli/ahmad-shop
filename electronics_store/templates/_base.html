@@ -1,0 +1,70 @@
+{% load i18n %}{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% block title %}{% endblock %}
+
+    <!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'styles/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'styles/responsive.css' %}" />
+  </head>
+
+  <body>
+    {% include 'include/navbar/navbar.html' %}
+    {% include 'include/navbar/static_categories.html' %}
+    {% block body %}{% endblock %}
+    {% include 'include/footer/footer.html' %}
+
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/d17c83b3d5.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'app/main.js' %}"></script>
+    <script>
+      // Add to cart functionality
+      $(document).on("click", ".add_to_cart", function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '{% url "shop_cart:cart_add" %}',
+          data: {
+            product_id: $(this).val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+          },
+
+          success: function (json) {
+            console.log(json);
+          },
+
+          error: function (xhr, errmsg, err) {
+            console.log(errmsg);
+            console.log(err)
+          }
+
+        });
+      })
+    </script>
+    {% block script %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,187 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load static i18n %}
+
+{% block title %}<title>{{ product.name }} - {{ product.brand }}</title>{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'styles/products/products.css' %}" />
+<link rel="stylesheet" href="{% static 'styles/products/product-detail.css' %}" />
+{% endblock %}
+
+{% block body %}
+
+<section id="product-detail">
+    <div class="product-detail web_size">
+        <div class="top">
+            <div class="product_gallery">
+                <div class="main_img">
+                    <img id="main-img" src="{% if product.images %}{{ product.images.url }}{% else %}{% static 'assets/placeholder.png' %}{% endif %}" alt="{{ product.name }}" onerror="this.src='{% static 'assets/placeholder.png' %}'" />
+                </div>
+                <div class="imgs">
+                    {% if product.images %}
+                        <button onclick="changeMainImage('{{ product.images.url }}')">
+                            <img src="{{ product.images.url }}" alt="{{ product.name }}" onerror="this.src='{% static 'assets/placeholder.png' %}'" />
+                        </button>
+                    {% endif %}
+                    {% if product.image_2 %}
+                        <button onclick="changeMainImage('{{ product.image_2.url }}')">
+                            <img src="{{ product.image_2.url }}" alt="{{ product.name }}" onerror="this.src='{% static 'assets/placeholder.png' %}'" />
+                        </button>
+                    {% endif %}
+                    {% if product.image_3 %}
+                        <button onclick="changeMainImage('{{ product.image_3.url }}')">
+                            <img src="{{ product.image_3.url }}" alt="{{ product.name }}" onerror="this.src='{% static 'assets/placeholder.png' %}'" />
+                        </button>
+                    {% endif %}
+                    {% if product.image_4 %}
+                        <button onclick="changeMainImage('{{ product.image_4.url }}')">
+                            <img src="{{ product.image_4.url }}" alt="{{ product.name }}" onerror="this.src='{% static 'assets/placeholder.png' %}'" />
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="main_info">
+                <span>Brand: {{ product.brand }}</span>
+                <h3>{{ product.name }}</h3>
+                <p id="product-description">
+                    {{ product.description|slice:":350" }}{% if product.description|length > 150 %}... 
+                    <span id="read-more" style="color: blue; cursor: pointer;">Read more</span>{% endif %}
+                </p>
+                <div class="hr_line"></div>
+
+                <div class="price">
+                    {% if product.discount_price %}
+                        <span class="original-price">${{ product.price }}</span>
+                        <span class="discounted-price">${{ product.discount_price }}</span>
+                        <span class="discount-percentage">-{{ product.discount_percentage|floatformat:0 }}%</span>
+                    {% else %}
+                        <span class="original-price">${{ product.price }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="btns-group">
+                    <div class="product-count">
+                        <button id="decrement_count">
+                            <svg
+                                width="17"
+                                height="17"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g clip-path="url(#clip0_417_2812)">
+                                <path
+                                    d="M3.54297 8.5H13.4596"
+                                    stroke="white"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_417_2812">
+                                    <rect width="17" height="17" fill="white" />
+                                </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                        <span id="product_quantity">1</span>
+                        <button id="increment_count">
+                            <svg
+                                width="17"
+                                height="17"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g clip-path="url(#clip0_417_2815)">
+                                <path
+                                    d="M8.5 3.54169V13.4584"
+                                    stroke="white"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M3.54297 8.5H13.4596"
+                                    stroke="white"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_417_2815">
+                                    <rect width="17" height="17" fill="white" />
+                                </clipPath>
+                                </defs>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="buy-now-detail-page">Buy now</button>
+                    <button class="add-to-cart-detail-page">Add to cart</button>
+                </div>
+            </div>
+        </div>
+        <div class="characteristics">
+            {% if product.characteristics.exists %}
+                {% for characteristic in product.characteristics.all %}
+                    <div class="characteristics_item">
+                        <span>{{ characteristic.name }}</span>
+                        <p>{{ characteristic.value }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No characteristics available for this product.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block script %}
+<script>
+ function changeMainImage(imageUrl) {
+        const mainImg = document.getElementById('main-img');
+        mainImg.src = imageUrl;
+    }
+    $(document).ready(function () {
+        let quantity = 1;
+        const quantityDisplay = $("#product_quantity");
+        const incrementBtn = $("#increment_count");
+        const decrementBtn = $("#decrement_count");
+
+        incrementBtn.click(function () {
+            quantity++;
+            quantityDisplay.text(quantity);
+        });
+
+        decrementBtn.click(function () {
+            if (quantity > 1) {
+                quantity--;
+                quantityDisplay.text(quantity);
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        let fullText = `{{ product.description|escapejs }}`; 
+        let currentLength = 350; 
+        const increment = 150; 
+        let descElement = $("#product-description");
+
+        $(document).on("click", "#read-more", function () {
+            if (currentLength < fullText.length) {
+                currentLength += increment;
+                let newText = fullText.substring(0, currentLength) + 
+                    (currentLength < fullText.length ? '... <span id="read-more" style="color: blue; cursor: pointer;">Read more</span>' : '');
+                descElement.html(newText);
+            }
+        });
+    });
+
+
+</script>
+{% endblock %}

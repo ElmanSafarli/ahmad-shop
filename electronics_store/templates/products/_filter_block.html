@@ -1,0 +1,29 @@
+        <div class="sort_data">
+          <form id="filter-form">
+            <div class="sort_data_item">
+                <span>Price</span>
+                <div class="hr_line"></div>
+                <div class="sort_data_value price-filter">
+                    <input type="number" name="min_price" min="0" id="min_price"/>
+                    <span>-</span>
+                    <input type="number" name="max_price" min="0" max="10000" id="max_price"/>
+                    <button type="button" id="filter-btn">OK</button>
+                </div>
+            </div>
+
+            {% for characteristic, values in characteristics.items %}
+            <div class="sort_data_item">
+                <span>{{ characteristic }}</span>
+                <div class="hr_line"></div>
+                {% for value in values %}
+                <div class="sort_data_value">
+                    <label>
+                        <input type="checkbox" name="{{ characteristic }}" value="{{ value }}" class="filter-checkbox"/>
+                        <span>{{ value }}</span>
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+          </form>
+        </div>

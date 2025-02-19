@@ -5,6 +5,11 @@ var swiper = new Swiper(".newsSwipper", {
   },
 });
 
+var categoriesSwipper = new Swiper(".categoriesSwipper", {
+  slidesPerView: 5,
+  spaceBetween: 30,
+});
+
 $(document).ready(function () {
   $(".phone_menu, .language").hide();
 
@@ -26,5 +31,10 @@ $(document).ready(function () {
 
   $(".phone_menu, .language").click(function (event) {
     event.stopPropagation();
+  });
+
+  $("#catalog_main_toggle").click(function () {
+    $(".catalog_content").toggleClass("active");
+    $("svg").toggleClass("rotated");
   });
 });
