@@ -91,34 +91,48 @@
 
 {% block script %}
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const checkboxes = document.querySelectorAll(".filter-checkbox");
-    const priceFilterBtn = document.getElementById("filter-btn");
+$(document).ready(function() {
+    const checkboxes = $(".filter-checkbox");
+    const priceFilterBtn = $("#filter-btn");
 
     function applyFilters() {
-        let formData = new FormData(document.getElementById("filter-form"));
-        let params = new URLSearchParams(formData).toString();
-
-        fetch(`?${params}`, {
+        const formData = $("#filter-form").serialize();
+        
+        $.ajax({
+            url: `?${formData}`,
+            type: "GET",
             headers: {
                 "X-Requested-With": "XMLHttpRequest"
+            },
+            success: function(data) {
+                const newProductList = $(data).find("#product-list").html();
+                $("#product-list").html(newProductList);
             }
-        })
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("product-list").innerHTML = 
-                new DOMParser().parseFromString(data, "text/html").querySelector("#product-list").innerHTML;
         });
     }
 
-    // Attach event listeners to checkboxes
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener("change", applyFilters);
-    });
+    checkboxes.on("change", applyFilters);
+    priceFilterBtn.on("click", applyFilters);
 
-    // Attach event listener to price filter button
-    priceFilterBtn.addEventListener("click", applyFilters);
+    $(".see-more").on("click", function() {
+        const characteristic = $(this).data("characteristic");
+        const moreValuesDiv = $(`.more-values[data-characteristic="${characteristic}"]`);
+        const hiddenItems = moreValuesDiv.find(".sort_data_value.hidden");
+
+        let count = 0;
+        hiddenItems.each(function() {
+            if (count < 10) {
+                $(this).removeClass("hidden");
+                count++;
+            }
+        });
+
+        if (hiddenItems.length <= 10) {
+            $(this).hide();
+        }
+    });
 });
+
 </script>
 
 {% endblock %}
