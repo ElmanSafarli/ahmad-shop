@@ -21,7 +21,7 @@
               <span>Order now</span>
               <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
             </a>
-            <a href="">Our categories</a>
+            <a href="{% url 'app:categories_list' %}">Our categories</a>
           </div>
         </div>
         <div class="right">
@@ -134,131 +134,12 @@
         </div>
       </div>
     </header>
+    
+    {% include 'include/home/categories.html' %}
 
-     <section id="categories">
-      <div class="categories-content web_size">
-        <div class="section_name">Our categories</div>
-        <div class="categories-group">
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/gaming-console.png' %}"
-                  alt="Gaming & Consoles"
-                />
-              </div>
-              <span>Gaming & Consoles</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/pc.png' %}"
-                  alt="PC & Laptop Accessories"
-                />
-              </div>
-              <span>PC & Laptop Accessories</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/Audio & Sound Systems.png' %}"
-                  alt="Audio & Sound Systems"
-                />
-              </div>
-              <span>Audio & Sound Systems</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/Toys & games.png' %}"
-                  alt="Toys & games"
-                />
-              </div>
-              <span>Toys & games</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/Home Entertainment.png' %}"
-                  alt="Home Entertainment"
-                />
-              </div>
-              <span>Home Entertainment</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/Security & Surveillance.png' %}"
-                  alt="Security & Surveillance"
-                />
-              </div>
-              <span>Security & Surveillance</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/Lighting & Electricals.png' %}"
-                  alt="Lighting & Electricals"
-                />
-              </div>
-              <span>Lighting & Electricals</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/Car Accessories.png' %}"
-                  alt="Car Accessories"
-                />
-              </div>
-              <span>Car Accessories</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img
-                  src="{% static 'assets/categories/Self-care Tech & Gadgets.png' %}"
-                  alt="Self-care Tech & Gadgets"
-                />
-              </div>
-              <span>Self-care Tech & Gadgets</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-          <div class="categories-item">
-            <div class="content">
-              <div class="icon">
-                <img src="" alt="Phone & Mobile Accessories" />
-              </div>
-              <span>Phone & Mobile Accessories</span>
-              <a href="">View all</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    {% include 'include/home/latest_products.html' %}
+
+    {% include 'include/home/contact.html' %}
 
 {% endblock %}
 
@@ -270,6 +151,37 @@
                 el: ".swiper-pagination",
                 clickable: true,
             },
+        });
+
+        var latestProdSwiper = new Swiper(".latestProdSwiper", {
+          slidesPerView: 5,
+          spaceBetween: 8,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          breakpoints: {
+            1280: {
+              slidesPerView: 5,
+              spaceBetween: 8,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 8,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 8,
+            },
+            480: {
+              slidesPerView: 2,
+              spaceBetween: 8,
+            },
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 8,
+            },
+          },
         });
     </script>
 {% endblock %}

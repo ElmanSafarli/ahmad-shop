@@ -22,3 +22,14 @@ def cart_add(request):
         response = JsonResponse({'Product Name: ': product.name})
 
         return response
+    
+def cart_delete(request):
+    cart = Cart(request)
+
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        cart.delete(product=product_id)
+
+        response = JsonResponse({'Product Name: ': product_id})
+
+        return response

@@ -24,7 +24,7 @@
                     <img src="{% if product.images %}{{ product.images.url }}{% else %}{% static 'assets/placeholder.png' %}{% endif %}" alt="{{ product.name }}" onerror="this.src='{% static 'assets/placeholder.png' %}'" />
                   </div>
                   <div class="info">
-                    <a href="">{{ product.name }}</a>
+                    <a href="{% url 'products:product_detail' product.slug %}">{{ product.name }}</a>
                     <div>
                         {% if product.discount_price %}
                             <span>-{{ product.discount_percentage|floatformat:0 }}%</span>
@@ -109,14 +109,14 @@
                       </svg>
                     </button>
                   </div>
-                  <button class="delete_btn" type="button">
+                  <button id="remove_from_cart" class="delete_btn" type="button" data-index="{{ product.id }}">
                     <i class="fa-solid fa-xmark"></i>
                   </button>
                 </div>
               </div>
               <div class="bottom">
                 <span>Total count:</span>
-                <span>259.00 $</span>
+                <span></span>
               </div>
             </div>
             {% endfor %}

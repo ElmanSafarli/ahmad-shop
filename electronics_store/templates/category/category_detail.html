@@ -119,3 +119,53 @@
     </div>
 </section>
 {% endblock %}
+
+
+
+{% block script %}
+<script>
+$(document).ready(function() {
+    const checkboxes = $(".filter-checkbox");
+    const priceFilterBtn = $("#filter-btn");
+
+    function applyFilters() {
+        const formData = $("#filter-form").serialize();
+        
+        $.ajax({
+            url: `?${formData}`,
+            type: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            success: function(data) {
+                const newProductList = $(data).find("#product-list").html();
+                $("#product-list").html(newProductList);
+            }
+        });
+    }
+
+    checkboxes.on("change", applyFilters);
+    priceFilterBtn.on("click", applyFilters);
+
+    $(".see-more").on("click", function() {
+        const characteristic = $(this).data("characteristic");
+        const moreValuesDiv = $(`.more-values[data-characteristic="${characteristic}"]`);
+        const hiddenItems = moreValuesDiv.find(".sort_data_value.hidden");
+
+        let count = 0;
+        hiddenItems.each(function() {
+            if (count < 10) {
+                $(this).removeClass("hidden");
+                count++;
+            }
+        });
+
+        if (hiddenItems.length <= 10) {
+            $(this).hide();
+        }
+    });
+});
+
+</script>
+
+{% endblock %}

@@ -93,7 +93,8 @@
     flex: 1;
 }
 
-.products_group .product {
+.products_group .product,
+.latest_products .product {
     border-radius: 2px;
     background: #232323;
     height: 100%;
@@ -101,7 +102,13 @@
     position: relative;
 }
 
-.products_group .product #selected_like {
+.latest_products .product {
+    height: 394px;
+    max-width: 250px;
+}
+
+.products_group .product #selected_like,
+.latest_products .product #selected_like{
     position: absolute;
     top: 4px;
     right: 20px;
@@ -113,7 +120,8 @@
     cursor: pointer;
 }
 
-.products_group .product .product_img {
+.products_group .product .product_img,
+.latest_products .product .product_img{
     position: relative;
     height: 186px;
     background-color: var(--gray);
@@ -121,7 +129,8 @@
     overflow: hidden;
 }
 
-.products_group .product .product_img img {
+.products_group .product .product_img img ,
+.latest_products .product .product_img img{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -129,7 +138,8 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.products_group .product .product_info {
+.products_group .product .product_info,
+.latest_products .product .product_info {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -137,26 +147,30 @@
     margin-top: 26px;
 }
 
-.products_group .product .product_info .ptoduct_price {
+.products_group .product .product_info .ptoduct_price,
+.latest_products .product .product_info .ptoduct_price{
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.products_group .product .product_info .ptoduct_price .main_price {
+.products_group .product .product_info .ptoduct_price .main_price,
+.latest_products .product .product_info .ptoduct_price .main_price{
     font-weight: 700;
     font-size: 16px;
     color: var(--accent);
 }
 
-.products_group .product .product_info .ptoduct_price .discount_price {
+.products_group .product .product_info .ptoduct_price .discount_price ,
+.latest_products .product .product_info .ptoduct_price .discount_price {
     font-weight: 700;
     font-size: 13px;
     color: #9497ad;
     text-decoration: line-through;
 }
 
-.products_group .product .product_info h3 {
+.products_group .product .product_info h3,
+.latest_products .product .product_info h3 {
     font-weight: 400;
     line-height: 150%;
     font-size: 13px;
@@ -164,7 +178,9 @@
 }
 
 .products_group .product .product_discount_percent,
-.products_group .product .top_sales {
+.products_group .product .top_sales,
+.latest_products .product .product_discount_percent,
+.latest_products .product .top_sales {
     font-weight: 700;
     background-color: var(--accent);
     text-align: center;
@@ -177,12 +193,14 @@
     left: 0;
 }
 
-.products_group .product .top_sales {
+.products_group .product .top_sales,
+.latest_products .product .top_sales{
     top: 0;
     font-size: 13px;
 }
 
-.products_group .product .product_discount_percent {
+.products_group .product .product_discount_percent,
+ .latest_products .product .product_discount_percent{
     font-size: 11px;
     bottom: 0;
 }

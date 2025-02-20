@@ -35,3 +35,11 @@ class Cart():
     def get_total_quantity(self):
         """Returns the total quantity of items in the cart."""
         return sum(item['quantity'] for item in self.cart.values())
+    
+    def delete(self, product):
+        product_id = str(product)
+
+        if product_id in self.cart:
+            del self.cart[product_id]
+
+        self.session.modified = True

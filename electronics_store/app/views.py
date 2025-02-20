@@ -20,6 +20,14 @@ from django.views.generic import TemplateView
 class HomeView(TemplateView):
     template_name = 'pages/home.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['newest_products'] = Product.objects.filter(in_stock=True).order_by('-id')[:16].only(
+        'name', 'slug', 'price', 'discount_price', 'images', 'is_top_seller'
+        )
+
+        return context
+
 
 class CategoryListView(ListView):
     model = Category

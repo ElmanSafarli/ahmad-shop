@@ -279,6 +279,10 @@
     }
 
     /* Cart page */
+
+    .cart-products-group{
+        width: 100%;
+    }
     .cart-products-group .cart_item .top,
     .cart-products-group .cart_item .top .left {
         flex-direction: column;width: 100%;

@@ -64,6 +64,30 @@
 
         });
       })
+
+      // Remove product from cart functionality
+      $(document).on("click", "#remove_from_cart", function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '{% url "shop_cart:cart_delete" %}',
+          data: {
+            product_id: $(this).data('index'),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+          },
+
+          success: function (json) {
+            location.reload();
+          },
+
+          error: function (xhr, errmsg, err) {
+            console.log(errmsg);
+            console.log(err)
+          }
+
+        });
+      })
     </script>
     {% block script %}{% endblock %}
   </body>
