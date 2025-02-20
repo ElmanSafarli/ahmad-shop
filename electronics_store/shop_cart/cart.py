@@ -15,15 +15,23 @@ class Cart():
         product_id = str(product.id)
 
         if product_id not in self.cart:
-            pass
+            self.cart[product_id] = {
+                'name': product.name,
+                'price': str(product.price),
+                'quantity': 1
+            }
         else:
-            self.cart[product_id] = {'price': str(product.price)}
+            self.cart[product_id]['quantity'] += 1
         
         self.session.modified = True
 
     
     def get_prods(self):
-        products_ids = self.cart.keys()
+        products_ids = [int(pid) for pid in self.cart.keys()] 
         products = Product.objects.filter(id__in=products_ids)
 
         return products
+    
+    def get_total_quantity(self):
+        """Returns the total quantity of items in the cart."""
+        return sum(item['quantity'] for item in self.cart.values())
