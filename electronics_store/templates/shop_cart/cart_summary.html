@@ -10,6 +10,8 @@
    
     <section id="cart_page">
       <div class="cart web_size">
+
+        {% if cart_products %}
         <div class="title">
           <h2>Cart</h2>
           <span>Your cart contains 3 items</span>
@@ -127,6 +129,12 @@
             <span class="total_check_price" id="grand_total">200.00 $</span>
           </div>
         </div>
+        {% else %}
+        <div class="empty_cart">
+          <img src="" alt="Empty cart" />
+          <p>Cart is empty</p>
+        </div>
+        {% endif %}
       </div>
     </section>
 

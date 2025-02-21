@@ -1,9 +1,11 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 from django.http import JsonResponse
 from products.models import Category, Product
 
 from django.views.generic import TemplateView, ListView, DetailView
+
+from django.db.models import Q
 
 def get_subcategories(request):
     category_id = request.GET.get('category_id')
@@ -93,3 +95,11 @@ class CategoryDetailView(DetailView):
         return context
 
 
+def search(request):
+    
+    if request.method == 'POST':
+        q_user = request.POST.get('q', '')
+        q = Product.objects.filter(Q(name__icontains=q_user) | Q(description__icontains=q_user))
+        return render(request, 'pages/search.html', {'q': q, 'q_user': q_user})
+    else:
+        return render(request, 'pages/search.html', {})

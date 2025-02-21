@@ -43,9 +43,10 @@
               </div>
             </div>
             <div class="search_bar">
-              <form action="">
-                <input type="text" placeholder="I'm looking for..." />
-                <div id="search_type">
+              <form method="POST" action="{% url 'app:search' %}">
+                {% csrf_token %}
+                <input type="text" name="q" placeholder="I'm looking for..." />
+                {% comment %} <div id="search_type">
                   <button class="choosen">
                     <span>Goods</span>
                     <i class="fa-solid fa-angle-down"></i>
@@ -56,7 +57,7 @@
                       <li>Companies</li>
                     </ul>
                   </div>
-                </div>
+                </div> {% endcomment %}
                 <button type="submit">
                   <svg
                     width="19"
@@ -111,6 +112,9 @@
                   fill="white"
                 />
               </svg>
+              {% if total_quantity > 0 %}
+              <span class="cart_count">{{ total_quantity }}</span>
+              {% endif %}
               <span>Cart</span>
             </a>
           </div>
