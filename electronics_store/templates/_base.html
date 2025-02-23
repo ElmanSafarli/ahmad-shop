@@ -29,7 +29,9 @@
   <body>
     {% include 'include/navbar/navbar.html' %}
     {% include 'include/navbar/static_categories.html' %}
-    {% block body %}{% endblock %}
+    {% include 'include/shop_cart/cart_content.html' %}
+    {% block body %}
+    {% endblock %}
     {% include 'include/footer/footer.html' %}
 
     <!-- Font Awesome -->
@@ -54,7 +56,7 @@
           },
 
           success: function (json) {
-            console.log(json);
+            updateCartPreview(json);
           },
 
           error: function (xhr, errmsg, err) {
@@ -63,7 +65,48 @@
           }
 
         });
+
+        $(".popupCart-wrapper").addClass("active");
+        $(".popupCart-wrapper .popupCart-overlay").addClass("active");
+        $("html").addClass("active");
       })
+
+      function updateCartPreview(data) {
+        $('.popupCart-title span').text('There are ' + data.total_quantity + ' items in your cart.');
+
+        $('.popupCart-items').empty();
+
+        data.cart_products.forEach(function(product) {
+            var productHtml = `
+                <div class="popupCart-item">
+                    <div class="cartbox-content">
+                        <div>
+                            <div class="cartbox-img" style="background-image: url('${product.image_url}');"></div>
+                            <div class="cartbox-details">
+                                <a href="">${product.name}</a>
+                                ${product.discount_percentage ? 
+                                `<div class="cartbox-discount">-${product.discount_percentage} %</div>` : 
+                                ''}
+                                <div class="cartbox-price">
+                                    ${product.discount_price ? 
+                                        `<p class="final_price">${product.discount_price} $</p><p class="old_price">${product.price} $</p>` : 
+                                        `<p class="final_price">${product.price} $</p>`}
+                                </div>
+                            </div>
+                        </div>
+                        <button id="remove_from_cart" class="delete_btn" type="button" data-index="${product.id}">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="cartbox-footer">
+                        <span>Total count:</span>
+                        <span>${product.price} $</span>
+                    </div>
+                </div>
+            `;
+            $('.popupCart-items').append(productHtml);
+        });
+      }
 
       // Remove product from cart functionality
       $(document).on("click", "#remove_from_cart", function (e) {
@@ -88,6 +131,14 @@
 
         });
       })
+
+      // Close cart product 
+      $(document).on("click", "#close_cart_popup", function (e) {
+        $(".popupCart-wrapper").removeClass("active");
+        $(".popupCart-wrapper .popupCart-overlay").removeClass("active");
+        $("html").removeClass("active");
+        location.reload();
+      }) 
     </script>
     {% block script %}{% endblock %}
   </body>

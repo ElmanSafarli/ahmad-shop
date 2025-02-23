@@ -15,8 +15,16 @@ html {
     font-style: normal;
 }
 
+html.active {
+    overflow: hidden;
+}
+
 body {
     overflow-x: hidden;
+}
+
+body.active {
+    overflow: hidden;
 }
 
 :root {
@@ -26,6 +34,7 @@ body {
     --accent: #F21000;
     --gray: #d3d3d3;
     --dark_grey: #7e7d7a;
+    --hover_grey: #f6f7f8;
 }
 
 a {
@@ -46,6 +55,6 @@ ul {
     display: none;
 }
 
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
     background-color: var(--accent) !important;
 }

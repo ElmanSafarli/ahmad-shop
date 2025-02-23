@@ -59,6 +59,7 @@ class ProductType(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField("URL",max_length=250)
+    published_date = models.DateTimeField(auto_now_add=True)
     description = models.TextField()
     brand = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -82,7 +83,7 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def discount_percentage(self):
         if self.discount_price:

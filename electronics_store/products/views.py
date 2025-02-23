@@ -21,12 +21,20 @@ class ProductsListView(ListView):
         characteristic_filters = {}
 
         for key, values in filters.lists():
-            if key in ['min_price', 'max_price']: 
+            if key in ['min_price', 'max_price', 'sort']: 
                 continue
             characteristic_filters[key] = values 
 
         for name, values in characteristic_filters.items():
             queryset = queryset.filter(characteristics__name=name, characteristics__value__in=values)
+
+        sort_order = filters.get('sort')
+        if sort_order == 'cheap_first':
+            queryset = queryset.order_by('price')  # Ascending order (cheap to expensive)
+        elif sort_order == 'expensive_first':
+            queryset = queryset.order_by('-price')  # Descending order (expensive to cheap)
+        else:
+            queryset = queryset.order_by('-published_date')
 
         return queryset.distinct()
 

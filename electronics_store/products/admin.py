@@ -15,8 +15,8 @@ class ProductCharacteristicInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
-    list_display = ('name', 'brand', 'price', 'discount_price', 'product_type', 'category', 'discount_percentage')  # Added 'category' here
-    list_filter = ('brand', 'product_type', 'category')  # Added 'category' to filter
+    list_display = ('name', 'brand', 'price', 'discount_price', 'published_date', 'product_type', 'category', 'discount_percentage')  
+    list_filter = ('brand', 'product_type', 'category') 
     search_fields = ('name', 'brand', 'description')
     prepopulated_fields = {'slug': ('name',)}
     inlines = [ProductCharacteristicInline] 
