@@ -251,3 +251,15 @@
 .product-detail .characteristics .characteristics_item:nth-child(6n+6) {
     background: transparent;
 }
+
+/* Releated products */
+.related_products {
+    margin: 50px 0;
+}
+
+.related_products h3 {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 40px;
+}

@@ -104,7 +104,8 @@
 }
 
 .products_group .product,
-.latest_products .product {
+.latest_products .product,
+.featured_group .product {
     border-radius: 2px;
     background: #232323;
     height: 100%;
@@ -118,7 +119,8 @@
 }
 
 .products_group .product #selected_like,
-.latest_products .product #selected_like {
+.latest_products .product #selected_like,
+.featured_group .product #selected_like {
     position: absolute;
     top: 4px;
     right: 20px;
@@ -132,7 +134,8 @@
 }
 
 .products_group .product .product_img,
-.latest_products .product .product_img {
+.latest_products .product .product_img,
+.featured_group .product .product_img {
     position: relative;
     height: 186px;
     background-color: var(--gray);
@@ -141,7 +144,8 @@
 }
 
 .products_group .product .product_img img,
-.latest_products .product .product_img img {
+.latest_products .product .product_img img,
+.featured_group .product .product_img img {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -150,7 +154,8 @@
 }
 
 .products_group .product .product_info,
-.latest_products .product .product_info {
+.latest_products .product .product_info,
+.featured_group .product .product_info {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -159,21 +164,24 @@
 }
 
 .products_group .product .product_info .ptoduct_price,
-.latest_products .product .product_info .ptoduct_price {
+.latest_products .product .product_info .ptoduct_price,
+.featured_group .product .product_info .ptoduct_price {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .products_group .product .product_info .ptoduct_price .main_price,
-.latest_products .product .product_info .ptoduct_price .main_price {
+.latest_products .product .product_info .ptoduct_price .main_price,
+.featured_group .product .product_info .ptoduct_price .main_price {
     font-weight: 700;
     font-size: 16px;
     color: var(--accent);
 }
 
 .products_group .product .product_info .ptoduct_price .discount_price,
-.latest_products .product .product_info .ptoduct_price .discount_price {
+.latest_products .product .product_info .ptoduct_price .discount_price,
+.featured_group .product .product_info .ptoduct_price .discount_price {
     font-weight: 700;
     font-size: 13px;
     color: #9497ad;
@@ -181,7 +189,8 @@
 }
 
 .products_group .product .product_info h3,
-.latest_products .product .product_info h3 {
+.latest_products .product .product_info h3,
+.featured_group .product .product_info h3 {
     font-weight: 400;
     line-height: 150%;
     font-size: 13px;
@@ -191,7 +200,9 @@
 .products_group .product .product_discount_percent,
 .products_group .product .top_sales,
 .latest_products .product .product_discount_percent,
-.latest_products .product .top_sales {
+.latest_products .product .top_sales,
+.featured_group .product .product_discount_percent,
+.featured_group .product .top_sales {
     font-weight: 700;
     background-color: var(--accent);
     text-align: center;
@@ -205,13 +216,15 @@
 }
 
 .products_group .product .top_sales,
-.latest_products .product .top_sales {
+.latest_products .product .top_sales,
+.featured_group .product .top_sales {
     top: 0;
     font-size: 13px;
 }
 
 .products_group .product .product_discount_percent,
-.latest_products .product .product_discount_percent {
+.latest_products .product .product_discount_percent,
+.featured_group .product .product_discount_percent {
     font-size: 11px;
     bottom: 0;
 }
@@ -263,7 +276,7 @@
     cursor: pointer;
 }
 
-.sort_data_by_price .select-box-byPrice i{
+.sort_data_by_price .select-box-byPrice i {
     transform: rotate(180deg);
     transition: transform 0.3s;
 }

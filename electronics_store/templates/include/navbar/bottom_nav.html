@@ -97,6 +97,9 @@
                   fill="white"
                 />
               </svg>
+              {% if featured_total_quantity > 0 %}
+              <span class="cart_count">{{ total_quantity }}</span>
+              {% endif %}
               <span>Featured</span>
             </a>
             <a href="{% url 'shop_cart:cart_summary' %}">

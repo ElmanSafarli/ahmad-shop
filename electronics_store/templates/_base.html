@@ -89,8 +89,10 @@
               success: function (json) {
                   if (action === "post") {
                       button.addClass("favorited").css("color", "#F21000");
+                      location.reload();
                   } else {
                       button.removeClass("favorited").css("color", "#fff");
+                      location.reload();
                   }
               },
               error: function (xhr, errmsg, err) {

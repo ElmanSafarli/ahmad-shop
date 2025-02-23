@@ -4,7 +4,10 @@
 
 {% block title %}<title>Featured Products | Ahmad Electronics Store</title>{% endblock %}
 
-{% block css %}<link rel="stylesheet" href="{% static 'styles/featured/featured.css' %}" />{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'styles/featured/featured.css' %}" />
+<link rel="stylesheet" href="{% static 'styles/products/products.css' %}" />
+{% endblock %}
 
 {% block body %}
    
@@ -20,8 +23,11 @@
             <div class="featured_group">
                 {% for product in featured_products %}
                     <div class="product">
-                        <button id="selected_like"  value="{{ product.id }}" data-product-name="{{ product.name }}">
-                            <i class="fa-solid fa-heart"></i>
+                        <button id="selected_like"
+                                class="{% if product.id|stringformat:"s" in request.session.session_key %}favorited{% endif %}"
+                                data-product-id="{{ product.id }}"
+                                style="color: {% if product.id|stringformat:"s" in request.session.session_key %}#F21000{% else %}#fff{% endif %};">
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
                         </button>
                         <a href="{% url 'products:product_detail' product.slug %}">
                             <div class="product_img">
@@ -76,6 +82,7 @@
             </div>
             {% else %}
             <div class="no_products">
+                <img src="{% static 'assets/no_items.svg' %}" alt="No products" />
                 <p>There are no products in this category</p>
             </div>
             {% endif %}

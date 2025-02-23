@@ -4,17 +4,27 @@
 
 {% block title %}<title>Ahmad Electronics Store | Search</title>{% endblock %} 
 
-{% block css %}<link rel="stylesheet" href="{% static 'styles/products/products.css' %}"/>{% endblock %} 
+{% block css %}
+<link rel="stylesheet" href="{% static 'styles/products/products.css' %}"/>
+<link rel="stylesheet" href="{% static 'styles/featured/featured.css' %}" />
+{% endblock %} 
 
 
 {% block body %} 
 
-{% if q %}
+
 <section id="latest_products">
     <div class="web_size">
+        <div class="page_section_name">
+            <span>
+                Home > Search
+            </span>
+            <h1>Search Page</h1>
+        </div>
         {% if q_user %}
             <h2>You searched for: {{ q_user }}</h2>
         {% endif %}
+        {% if q %}
         <div class="latest_products searched_products">
             {% for product in q %} 
                 {% if product.in_stock %}
@@ -79,11 +89,15 @@
                 {% endif %} 
             {% endfor %}
         </div>
+        {% else %}
+            <div class="no_products">
+                <img src="{% static 'assets/no_items.svg' %}" alt="No products" />
+                <p>There are no products in this category</p>
+            </div>
+        {% endif %}
     </div>
 </section>
-{% else %}
-    <h2>No search term provided.</h2>
-{% endif %}
+
 
 {% endblock %} 
 
