@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'products',
     'app',
     'shop_cart',
+    'featured',
 
     # 3rd-party
     
@@ -67,6 +68,7 @@ TEMPLATES = [
 
                 'app.context_processors.categories',
                 'shop_cart.context_processors.cart_context',
+                'featured.context_processors.featured_context',
             ],
         },
     },

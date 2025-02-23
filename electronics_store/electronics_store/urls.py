@@ -13,6 +13,7 @@ urlpatterns = [
     path('', include("app.urls")),
     path('products/', include("products.urls")),
     path('cart/', include("shop_cart.urls")),
+    path('featured/', include("featured.urls")),
 )
 
 

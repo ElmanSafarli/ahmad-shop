@@ -1,0 +1,16 @@
+#featured_page{
+    background-color: var(--black);
+    padding: 20px 0;
+}
+
+.page_section_name{
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.page_section_name span{
+    font-size: 15px;
+}

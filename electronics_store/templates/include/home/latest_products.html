@@ -9,8 +9,11 @@
                 {% for product in newest_products  %}
                     {% if product.in_stock %}
                         <div class="product swiper-slide">
-                                <button id="selected_like"  data-id="{{ product.id }}" data-product-name="{{ product.name }}">
-                                   <i class="fa-solid fa-heart"></i>
+                                <button id="selected_like"
+                                        class="{% if product.id|stringformat:"s" in request.session.session_key %}favorited{% endif %}"
+                                        data-product-id="{{ product.id }}"
+                                        style="color: {% if product.id|stringformat:"s" in request.session.session_key %}#F21000{% else %}#fff{% endif %};">
+                                    <i class="fa-solid fa-heart" aria-hidden="true"></i>
                                 </button>
                                 <a href="{% url 'products:product_detail' product.slug %}">
                                 <div class="product_img">

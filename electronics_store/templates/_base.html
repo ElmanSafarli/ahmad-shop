@@ -71,6 +71,35 @@
         $("html").addClass("active");
       })
 
+      // Add and remove to featured functionality
+      $(document).on("click", "#selected_like", function (e) {
+          e.preventDefault();
+          let button = $(this);
+          let product_id = button.data("product-id");
+          let action = button.hasClass("favorited") ? "delete" : "post";
+
+          $.ajax({
+              type: 'POST',
+              url: action === "post" ? '{% url "featured:featured_add" %}' : '{% url "featured:featured_delete" %}',
+              data: {
+                  product_id: product_id,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+                  action: action
+              },
+              success: function (json) {
+                  if (action === "post") {
+                      button.addClass("favorited").css("color", "#F21000");
+                  } else {
+                      button.removeClass("favorited").css("color", "#fff");
+                  }
+              },
+              error: function (xhr, errmsg, err) {
+                  console.log(errmsg);
+              }
+          });
+      });
+
+    
       function updateCartPreview(data) {
         $('.popupCart-title span').text('There are ' + data.total_quantity + ' items in your cart.');
 
