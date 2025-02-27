@@ -87,7 +87,7 @@ class CategoryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         
         category = self.get_object()
-        product_list = self.get_queryset().filter(category=category)
+        product_list = self.get_queryset().filter(category=category, in_stock=True)
 
         # Pagination logic
         paginator = Paginator(product_list, self.paginate_by)
@@ -100,7 +100,7 @@ class CategoryDetailView(DetailView):
         context['is_paginated'] = paginated_products.has_other_pages()
 
         context['subcategories'] = Category.objects.filter(parent=category)
-
+        print(product_list)
         characteristics = {}
         for product in paginated_products:
             for characteristic in product.characteristics.all():

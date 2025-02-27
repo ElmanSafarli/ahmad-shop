@@ -23,15 +23,3 @@
     grid-row-gap: 20px;
 }
 
-.no_products img{
-    width: 80%;
-    max-width: 500px;
-    margin: 20px auto;
-}
-
-.no_products p{
-    font-weight: 400;
-    font-size: 16px;
-    text-align: left;
-    color: var(--white);
-}

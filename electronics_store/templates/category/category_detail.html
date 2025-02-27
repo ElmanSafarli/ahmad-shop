@@ -35,7 +35,7 @@
         </div>
         {% endif %}
 
-        {% if product_list %}
+        {% if product_list.has_other_pages or product_list|length > 0 %}
         <section id="products">
             <div class="web_size products-content">
                 {% include 'products/_filter_block.html' %}
@@ -160,7 +160,10 @@
             </div>
         </section>
         {% else %}
-        <p>No products found in this category.</p>
+            <div class="no_products">
+                <img src="{% static 'assets/no_items.svg' %}" alt="No products" />
+                <p>There are no products in this category</p>
+            </div>
         {% endif %}
     </div>
 </section>
