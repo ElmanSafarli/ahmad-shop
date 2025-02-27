@@ -96,6 +96,36 @@
               {% endif %}
             {% endfor %}
           </div>
+          {% if is_paginated %}
+              <div class="pagination">
+                  <div class="arrow-group">
+                    {% if page_obj.number > 1 %}
+                        <a href="?page=1" class="page-link arrow"><i class="fa-solid fa-angles-left"></i></a>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="page-link arrow"><i class="fa-solid fa-angle-left"></i></a>
+                    {% endif %}
+                  </div>
+
+                  <div class="pages-link">
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <span class="page-link active">{{ num }}</span>
+                        {% elif num <= 3 or num > page_obj.paginator.num_pages|add:"-3" or num == page_obj.number|add:"-1" or num == page_obj.number|add:"1" %}
+                            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                        {% elif num == 4 or num == page_obj.paginator.num_pages|add:"-4" %}
+                            <span class="page-link">...</span>
+                        {% endif %}
+                    {% endfor %}
+                  </div>
+
+                  <div class="arrow-group">
+                    {% if page_obj.number < page_obj.paginator.num_pages %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link arrow"><i class="fa-solid fa-angle-right"></i></a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link arrow"><i class="fa-solid fa-angles-right"></i></a>
+                    {% endif %}
+                  </div>
+              </div>
+          {% endif %}
+
         </div>
       </div>
     </section>

@@ -334,7 +334,7 @@
 
     /* Products list */
     .products_group {
-        grid-template-rows: repeat(28, 272px);
+        grid-auto-rows: minmax(272px, auto);
         grid-template-columns: repeat(2, 1fr);
     }
 

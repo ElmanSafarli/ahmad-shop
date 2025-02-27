@@ -1,10 +1,13 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Product
+from django.core.paginator import Paginator
+
 
 class ProductsListView(ListView):
     model = Product
     template_name = 'products/products_list.html'
+    paginate_by = 20  
 
     def get_queryset(self):
         queryset = Product.objects.all()
@@ -21,7 +24,7 @@ class ProductsListView(ListView):
         characteristic_filters = {}
 
         for key, values in filters.lists():
-            if key in ['min_price', 'max_price', 'sort']: 
+            if key in ['min_price', 'max_price', 'sort', 'page']: 
                 continue
             characteristic_filters[key] = values 
 
@@ -41,8 +44,18 @@ class ProductsListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # Pagination logic
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(self.get_queryset(), self.paginate_by)
+        paginated_queryset = paginator.get_page(page)
+
+        context['object_list'] = paginated_queryset
+        context['paginator'] = paginator
+        context['is_paginated'] = paginated_queryset.has_other_pages()
+
+        # Collect all characteristics
         characteristics = {}
-        for product in context['object_list']:
+        for product in paginated_queryset:
             for characteristic in product.characteristics.all():
                 if characteristic.name not in characteristics:
                     characteristics[characteristic.name] = set()

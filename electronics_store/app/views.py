@@ -7,6 +7,8 @@ from django.views.generic import TemplateView, ListView, DetailView
 
 from django.db.models import Q
 
+from django.core.paginator import Paginator
+
 def get_subcategories(request):
     category_id = request.GET.get('category_id')
     subcategories = Category.objects.filter(parent_id=category_id).values('id', 'name', 'slug')
@@ -42,6 +44,7 @@ class CategoryListView(ListView):
 
 class CategoryDetailView(DetailView):
     template_name = 'category/category_detail.html'
+    paginate_by = 20
 
     def get_object(self):
         """ Fetch category by slug. """
@@ -63,7 +66,7 @@ class CategoryDetailView(DetailView):
         characteristic_filters = {}
 
         for key, values in filters.lists():
-            if key in ['min_price', 'max_price', 'sort']: 
+            if key in ['min_price', 'max_price', 'sort', 'page']:  # Excluding 'page' to avoid conflicts
                 continue
             characteristic_filters[key] = values 
 
@@ -83,19 +86,28 @@ class CategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        category = self.get_object()  
-        product_list = self.get_queryset().filter(category=category)  
+        category = self.get_object()
+        product_list = self.get_queryset().filter(category=category)
+
+        # Pagination logic
+        paginator = Paginator(product_list, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        paginated_products = paginator.get_page(page)
+        context['product_list'] = paginated_products
+        context['paginator'] = paginator
+        context['page_obj'] = paginated_products
+        context['is_paginated'] = paginated_products.has_other_pages()
 
         context['subcategories'] = Category.objects.filter(parent=category)
-        
+
         characteristics = {}
-        for product in product_list:
+        for product in paginated_products:
             for characteristic in product.characteristics.all():
                 if characteristic.name not in characteristics:
                     characteristics[characteristic.name] = set()
                 characteristics[characteristic.name].add(characteristic.value)
 
-        context['product_list'] = product_list 
         context['characteristics'] = {key: list(values) for key, values in characteristics.items()}
 
         return context

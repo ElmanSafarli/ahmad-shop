@@ -1155,3 +1155,44 @@ footer {
         opacity: 1;
     }
 }
+
+/* Pagination */
+.page-link{
+    color: var(--white);
+}
+
+.pagination{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.pagination .arrow-group{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.pagination .pages-link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pagination .pages-link {
+    padding: 4px;
+}
+
+.pagination .arrow{
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
+    border-radius: 50%;
+}

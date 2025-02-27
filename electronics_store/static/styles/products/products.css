@@ -89,10 +89,9 @@
 .products_group {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(28, 394px);
+    grid-auto-rows: minmax(394px, auto);
     grid-column-gap: 10px;
     grid-row-gap: 12px;
-    flex: 1;
 }
 
 .searched_products {
