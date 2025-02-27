@@ -442,6 +442,24 @@
     display: none;
 }
 
+.mb_sort_value.active {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mb_sort_value label {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 4px;
+}
+
+.mb_sort_value label input,
+.mb_sort_value label span {
+    font-size: 14px;
+}
+
 .mb-filter-item .mb_filter_title {
     display: flex;
     align-items: center;
@@ -449,10 +467,12 @@
     margin-bottom: 16px;
     cursor: pointer;
 }
-.mb-filter-item .mb_filter_title i{
+
+.mb-filter-item .mb_filter_title i {
     transform: rotate(180deg);
     font-size: 12px;
 }
+
 .mb-filter-item .mb_filter_title.active i {
     transform: rotate(0);
     transition: transform 0.3s ease;

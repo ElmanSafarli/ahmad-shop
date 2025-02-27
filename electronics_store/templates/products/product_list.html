@@ -12,7 +12,7 @@
         {% include 'products/_filter_block.html' %}
         <div style="flex: 1">
           <div style="display: flex; justify-content: start; align-items: start; gap: 8px; margin-bottom: 8px">
-          <div class="sort_data_by_price">
+            <div class="sort_data_by_price">
               <div data-info="select-box" class="select-box-byPrice">
                   <div>
                       <span class="byPrice-atFirst">At first:</span>
@@ -30,12 +30,10 @@
                   <div>
                       <a href="?sort=latest_items">Latest items</a>
                   </div>
-              </div>
+            </div>
           </div>
           {% include 'products/_mb_filter.html' %}
-      </div>
-
-
+        </div>
           <div class="products_group" id="product-list">
             {% for product in object_list  %}
               {% if product.in_stock %}
@@ -109,6 +107,7 @@
 <script>
 $(document).ready(function() {
     const checkboxes = $(".filter-checkbox");
+    const checkboxesMb = $(".filter-checkbox-mb");
     const priceFilterBtn = $("#filter-btn");
 
     // Toggle sorting options on click
@@ -143,6 +142,7 @@ $(document).ready(function() {
     });
 
     checkboxes.on("change", applyFilters);
+    checkboxesMb.on("change", applyFiltersMB)
     priceFilterBtn.on("click", applyFilters);
 
     // Show more characteristic values
@@ -167,6 +167,24 @@ $(document).ready(function() {
     // Define the applyFilters function
     function applyFilters() {
         const formData = $("#filter-form").serialize();
+
+        
+        $.ajax({
+            url: `?${formData}`,
+            type: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            success: function(data) {
+                const newProductList = $(data).find("#product-list").html();
+                $("#product-list").html(newProductList);
+            }
+        });
+    }
+
+    // Aplyfilter for mobile
+    function applyFiltersMB() {
+        const formData = $("#filter-form-mb").serialize();
         
         $.ajax({
             url: `?${formData}`,
@@ -188,7 +206,7 @@ $(document).ready(function() {
 
     // Toglle for dropdown 
     $(".mb_filter_title").on("click", function () {
-        $(this).next(".mb_sort_value").slideToggle(); 
+        $(this).next(".mb_sort_value").toggleClass("active"); 
         $(this).toggleClass("active"); 
     });
 
@@ -196,6 +214,7 @@ $(document).ready(function() {
     // Close mobile filter sidebar
     $("#mobile_filter_close_btn").on("click", function() {
         $(".mobile_filter_layer").removeClass("active");
+        applyFiltersMB();
     });
 });
 
