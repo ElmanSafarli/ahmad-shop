@@ -263,3 +263,10 @@
     color: var(--white);
     margin-bottom: 40px;
 }
+
+.related_products .products_group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 394px);
+    grid-column-gap: 16px;
+}

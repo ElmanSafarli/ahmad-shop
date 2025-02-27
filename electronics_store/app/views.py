@@ -48,51 +48,58 @@ class CategoryDetailView(DetailView):
         category_slug = self.kwargs['category_slug']
         return get_object_or_404(Category, slug=category_slug)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        category = self.get_object()
+    def get_queryset(self):
+        queryset = Product.objects.all()
         filters = self.request.GET
 
-        # Get all descendant categories (subcategories)
-        subcategories = category.children.all()
-        subcategory_ids = subcategories.values_list('id', flat=True)
-
-        # Retrieve products from the category and its subcategories
-        products = Product.objects.filter(category__in=[category.id] + list(subcategory_ids))
-
-        # Apply price filtering
         min_price = filters.get('min_price')
         max_price = filters.get('max_price')
 
         if min_price:
-            products = products.filter(price__gte=min_price)
+            queryset = queryset.filter(price__gte=min_price)
         if max_price:
-            products = products.filter(price__lte=max_price)
+            queryset = queryset.filter(price__lte=max_price)
 
-        # Apply characteristics filtering
         characteristic_filters = {}
+
         for key, values in filters.lists():
-            if key in ['min_price', 'max_price']:
+            if key in ['min_price', 'max_price', 'sort']: 
                 continue
-            characteristic_filters[key] = values
+            characteristic_filters[key] = values 
 
         for name, values in characteristic_filters.items():
-            products = products.filter(characteristics__name=name, characteristics__value__in=values)
+            queryset = queryset.filter(characteristics__name=name, characteristics__value__in=values)
 
-        context['subcategories'] = category.children.all()
-        context['products'] = products.distinct()
-        context['category_path'] = category.get_category_path()
+        sort_order = filters.get('sort')
+        if sort_order == 'cheap_first':
+            queryset = queryset.order_by('price')  
+        elif sort_order == 'expensive_first':
+            queryset = queryset.order_by('-price') 
+        else:
+            queryset = queryset.order_by('-published_date')
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         
-        # Get characteristics dynamically based on filtered products
+        category = self.get_object()  
+        product_list = self.get_queryset().filter(category=category)  
+
+        context['subcategories'] = Category.objects.filter(parent=category)
+        
         characteristics = {}
-        for product in products:
+        for product in product_list:
             for characteristic in product.characteristics.all():
                 if characteristic.name not in characteristics:
                     characteristics[characteristic.name] = set()
                 characteristics[characteristic.name].add(characteristic.value)
 
+        context['product_list'] = product_list 
         context['characteristics'] = {key: list(values) for key, values in characteristics.items()}
+
         return context
+
 
 
 def search(request):

@@ -19,8 +19,13 @@ html.active {
     overflow: hidden;
 }
 
+html.loading {
+    overflow: hidden;
+}
+
 body {
     overflow-x: hidden;
+    background-color: var(--black);
 }
 
 body.active {

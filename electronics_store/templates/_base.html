@@ -27,6 +27,18 @@
   </head>
 
   <body>
+    <div class="overlay" id="loader">
+      <div class="dot-spinner">
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+          <div class="dot-spinner__dot"></div>
+      </div>
+    </div>
     {% include 'include/navbar/navbar.html' %}
     {% include 'include/navbar/static_categories.html' %}
     {% include 'include/shop_cart/cart_content.html' %}
@@ -43,6 +55,18 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'app/main.js' %}"></script>
     <script>
+      // Loader
+      $("html").addClass("loading");
+      $(window).on("load", function () {
+          setTimeout(() => {
+              $("#loader").fadeOut(() => {
+                  $("html").removeClass("loading");
+              });
+          }, 1000);
+      });
+
+    
+
       // Add to cart functionality
       $(document).on("click", ".add_to_cart", function (e) {
         e.preventDefault();

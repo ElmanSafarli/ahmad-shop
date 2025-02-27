@@ -94,6 +94,15 @@
         grid-template-columns: repeat(3, 1fr);
     }
 
+    /* Product list */
+    .sort_data {
+        display: none;
+    }
+
+    .mobile_product_filter {
+        display: block;
+    }
+
     /* Product detail page */
     .product-detail .top {
         flex-direction: column;
@@ -200,6 +209,45 @@
         font-size: 11px;
         white-space: pre-wrap;
     }
+
+    /* Sort by price */
+    .sort_data_by_price {
+        width: 160px;
+    }
+
+    .sort_data_by_price .select-box-byPrice .byPrice-atFirst {
+        display: none;
+    }
+
+    /* MB Filter */
+    .mb_filter_header span,
+    .mb_filter_header button {
+        font-size: 16px;
+    }
+
+    .mb_filter_header button {
+        font-size: 16px;
+        top: 12px;
+    }
+
+    .mb_filter_footer {
+        padding: 12px 10px;
+        gap: 6px;
+    }
+
+    .mb_filter_content {
+        padding: 20px 12px 0;
+        margin: 54px auto 15px;
+    }
+
+    .mb_filter_footer button {
+        height: 42px;
+        font-size: 14px;
+    }
+
+    .mb_filter_header {
+        height: 50px;
+    }
 }
 
 @media (max-width: 640px) {
@@ -237,6 +285,25 @@
         height: 260px;
     }
 
+    .navbar nav:last-child .middle {
+        order: 1;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .navbar nav:last-child .middle .search_bar {
+        width: 100%;
+    }
+
+    .navbar nav:last-child .middle .search_bar form {
+        width: 100%;
+    }
+
+    .navbar nav:last-child .logo {
+        width: 50px;
+        height: 50px;
+    }
+
     /* Services */
     .categories-group {
         grid-template-columns: repeat(1, 1fr);
@@ -263,6 +330,12 @@
 
     .all_categories .categories_group .categories_item a img {
         width: 66%;
+    }
+
+    /* Products list */
+    .products_group {
+        grid-template-rows: repeat(28, 272px);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     /* Product detal page */
@@ -555,7 +628,7 @@
         grid-column-gap: 10px;
         grid-row-gap: 14px;
     }
-    
+
 
     /* Footer */
     .footer,

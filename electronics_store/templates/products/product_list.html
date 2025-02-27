@@ -11,6 +11,7 @@
       <div class="web_size products-content">
         {% include 'products/_filter_block.html' %}
         <div style="flex: 1">
+          <div style="display: flex; justify-content: start; align-items: start; gap: 8px; margin-bottom: 8px">
           <div class="sort_data_by_price">
               <div data-info="select-box" class="select-box-byPrice">
                   <div>
@@ -31,6 +32,9 @@
                   </div>
               </div>
           </div>
+          {% include 'products/_mb_filter.html' %}
+      </div>
+
 
           <div class="products_group" id="product-list">
             {% for product in object_list  %}
@@ -177,6 +181,22 @@ $(document).ready(function() {
         });
     }
 
+    // Open mobile filter sidebar
+    $("#mobile_filter_btn").on("click", function() {
+        $(".mobile_filter_layer").addClass("active");
+    });
+
+    // Toglle for dropdown 
+    $(".mb_filter_title").on("click", function () {
+        $(this).next(".mb_sort_value").slideToggle(); 
+        $(this).toggleClass("active"); 
+    });
+
+
+    // Close mobile filter sidebar
+    $("#mobile_filter_close_btn").on("click", function() {
+        $(".mobile_filter_layer").removeClass("active");
+    });
 });
 
 </script>

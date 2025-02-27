@@ -30,9 +30,9 @@ class ProductsListView(ListView):
 
         sort_order = filters.get('sort')
         if sort_order == 'cheap_first':
-            queryset = queryset.order_by('price')  # Ascending order (cheap to expensive)
+            queryset = queryset.order_by('price')  
         elif sort_order == 'expensive_first':
-            queryset = queryset.order_by('-price')  # Descending order (expensive to cheap)
+            queryset = queryset.order_by('-price') 
         else:
             queryset = queryset.order_by('-published_date')
 
