@@ -2,11 +2,12 @@
 .products-content {
     display: flex;
     gap: 40px;
-    padding: 56px 2%;
+    padding: 56px 0;
 }
 
 #products {
-    background-color: var(--black);
+    /* background-color: var(--black); */
+    background-color: var(--white);
 }
 
 .sort_data {
@@ -14,7 +15,8 @@
 }
 
 .sort_data .sort_data_item {
-    color: var(--white);
+    /* color: var(--white); */
+    color: var(--black);
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -29,7 +31,8 @@
 .sort_data .sort_data_item .hr_line {
     width: 100%;
     height: 1px;
-    background-color: var(--white);
+    /* background-color: var(--white); */
+    background-color: var(--black);
 }
 
 .sort_data .sort_data_item .more-values {
@@ -60,12 +63,14 @@
 }
 
 .sort_data .sort_data_item .price-filter input {
-    border: 1px solid var(--white);
+    /* border: 1px solid var(--white); */
+    border: 1px solid var(--black);
     border-radius: 2px;
     width: 68px;
     height: 34px;
     font-size: 13px;
-    background-color: var(--white)
+    /* background-color: var(--white); */
+    background-color: var(--black);
 }
 
 .sort_data .sort_data_item .price-filter button {
