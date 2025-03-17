@@ -181,17 +181,15 @@
           <div class="navigation">
             <span>Categories</span>
             <ul>
-              <li><a href="">Gaming & Consoles</a></li>
-              <li><a href="">Computers & Laptops</a></li>
-              <li><a href="">Smartphones & Tablets</a></li>
-              <li><a href="">Cameras & Photo</a></li>
-              <li><a href="">TVs & Audio</a></li>
-              <li><a href="">Video Games</a></li>
-              <li><a href="">Home Appliances</a></li>
-              <li><a href="">Health & Beauty</a></li>
-              <li><a href="">Sports</a></li>
-              <li><a href="">Toys & Hobbies</a></li>
-              <li><a href="">Fashion</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='gaming-consoles' %}">Gaming & Consoles</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='pc-laptop-accessories' %}">PC & Laptop Accessories</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='phone-mobile-accessories' %}">Phone & Mobile Accessories</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='audio-sound-systems' %}">Audio & Sound Systems</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='tv-and-home-entertainment' %}">Home Entertainment</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='health-monitors' %}">Health Monitors</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='sports-and-hobbies' %}">Sports</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='toys-games' %}">Toys & Games</a></li>
+              <li><a href="{% url 'app:category_detail' category_slug='beauty-and-health' %}">Fashion</a></li>
             </ul>
           </div>
         </div>

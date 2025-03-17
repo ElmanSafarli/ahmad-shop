@@ -1,4 +1,5 @@
 from django.contrib import admin
+from import_export.admin import ExportMixin, ImportExportModelAdmin
 from .models import ProductType, Product, ProductCharacteristic, Category
 from modeltranslation.admin import TranslationAdmin
 
@@ -14,7 +15,7 @@ class ProductCharacteristicInline(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(TranslationAdmin):
+class ProductAdmin(ImportExportModelAdmin, TranslationAdmin):
     list_display = ('name', 'brand', 'price', 'discount_price', 'published_date', 'product_type', 'category', 'discount_percentage')  
     list_filter = ('brand', 'product_type', 'category') 
     search_fields = ('name', 'brand', 'description')

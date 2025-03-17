@@ -159,6 +159,11 @@
         display: none;
     }
 
+    .navbar nav:first-child .right .language{
+        right: auto;
+        left: 2%;
+    }
+
     /* Header */
     .news_slider_items img {
         height: 100%;

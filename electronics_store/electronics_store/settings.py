@@ -31,14 +31,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd-party
+    'import_export',
+
     # Apps
     'products',
     'app',
     'shop_cart',
     'featured',
-
-    # 3rd-party
-    
 ]
 
 MIDDLEWARE = [
